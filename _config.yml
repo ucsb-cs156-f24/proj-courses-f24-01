@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/proj-courses-f24-01
 owner: ucsb-cs156-f24
 repo_name: proj-courses-f24-01
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYxNTcyODg3","is_bot":false,"login":"vzaveri23","name":"Viraj Zaveri"},"headRefName":"viraj-annotation-warning","number":14,"title":"Fixed annotation warning in pom.xml","url":"https://github.com/ucsb-cs156-f24/proj-courses-f24-01/pull/14"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-fix-Stryker-SectionsOverTimeTable-and-SectionsTable","number":17,"title":"pc - create stryker exceptions for code that's hard to test","url":"https://github.com/ucsb-cs156-f24/proj-courses-f24-01/pull/17"},{"author":{"id":"MDQ6VXNlcjYxNTcyODg3","is_bot":false,"login":"vzaveri23","name":"Viraj Zaveri"},"headRefName":"viraj-annotation-warning","number":14,"title":"Fixed annotation warning in pom.xml","url":"https://github.com/ucsb-cs156-f24/proj-courses-f24-01/pull/14"}]
