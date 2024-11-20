@@ -218,3 +218,93 @@ describe("Section tests", () => {
     ).toHaveTextContent("Open");
   });
 });
+
+const queryClient = new QueryClient();
+
+describe("SectionsInstructorTable disableGroupBy tests", () => {
+
+  test("checks that disableGroupBy is set to true", () => {
+    const mockSections = [
+      {
+        courseInfo: {
+          quarter: "S22",
+          courseId: "CMPSC 130A",
+          title: "Data Structures and Algorithms I",
+        },
+        section: {
+          enrolledTotal: 40,
+          maxEnroll: 50,
+          timeLocations: [{ location: "PHELP 1448", days: "M W F", time: "9:00 AM - 10:00 AM" }],
+          instructors: ["Suri"],
+          enrollCode: "11111",
+          status: "Open",
+        }
+      },
+      {
+        courseInfo: {
+          quarter: "S22",
+          courseId: "CMPSC 130B",
+          title: "Data Structures and Algorithms II",
+        },
+        section: {
+          enrolledTotal: 45,
+          maxEnroll: 50,
+          timeLocations: [{ location: "PHELP 1448", days: "T R", time: "11:00 AM - 12:30 PM" }],
+          instructors: ["Johnson"],
+          enrollCode: "22222",
+          status: "Closed",
+        }
+      }
+    ];
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SectionsInstructorTable sections={mockSections} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const testId = "SectionsInstructorTable";
+
+    const quarterCell = screen.getByTestId(`${testId}-cell-row-0-col-quarter`);
+    expect(quarterCell).toHaveTextContent("S22");
+    expect(quarterCell).not.toHaveClass("grouped");
+
+    const courseIdColumn = screen.getByTestId(`${testId}-cell-row-0-col-courseInfo.courseId`);
+    expect(courseIdColumn).toHaveTextContent("CMPSC 130A");
+    expect(courseIdColumn).not.toHaveClass("grouped"); 
+
+    const titleColumn = screen.getByTestId(`${testId}-cell-row-0-col-courseInfo.title`);
+    expect(titleColumn).toHaveTextContent("Data Structures and Algorithms I");
+    expect(titleColumn).not.toHaveClass("grouped"); 
+
+    const statusColumn = screen.getByTestId(`${testId}-cell-row-0-col-status`);
+    expect(statusColumn).toHaveTextContent("Open");
+    expect(statusColumn).not.toHaveClass("grouped");
+
+    const enrolledColumn = screen.getByTestId(`${testId}-cell-row-0-col-enrolled`);
+    expect(enrolledColumn).toHaveTextContent("40/50");
+    expect(enrolledColumn).not.toHaveClass("grouped");
+
+    const locationColumn = screen.getByTestId(`${testId}-cell-row-0-col-location`);
+    expect(locationColumn).toHaveTextContent("PHELP 1448");
+    expect(locationColumn).not.toHaveClass("grouped");
+
+    const daysColumn = screen.getByTestId(`${testId}-cell-row-0-col-days`);
+    expect(daysColumn).toHaveTextContent("M W F");
+    expect(daysColumn).not.toHaveClass("grouped");
+
+    const timeColumn = screen.getByTestId(`${testId}-cell-row-0-col-time`);
+    expect(timeColumn).toHaveTextContent("9:00 AM - 10:00 AM");
+    expect(timeColumn).not.toHaveClass("grouped");
+
+    const instructorColumn = screen.getByTestId(`${testId}-cell-row-0-col-instructor`);
+    expect(instructorColumn).toHaveTextContent("Suri");
+    expect(instructorColumn).not.toHaveClass("grouped");
+
+    const enrollCodeColumn = screen.getByTestId(`${testId}-cell-row-0-col-section.enrollCode`);
+    expect(enrollCodeColumn).toHaveTextContent("11111");
+    expect(enrollCodeColumn).not.toHaveClass("grouped");
+  });
+});
