@@ -160,8 +160,8 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L160">            .orElseThrow(() -&gt; new EntityNotFoundException(PersonalSchedule.class, id));</span>
 
 <span class="fc" id="L162">    Optional&lt;PersonalSchedule&gt; duplicateCheck =</span>
-<span class="fc" id="L163">    personalscheduleRepository.findByUserAndNameAndQuarter(</span>
-<span class="fc" id="L164">        currentUser, incomingSchedule.getName(), incomingSchedule.getQuarter());</span>
+<span class="fc" id="L163">        personalscheduleRepository.findByUserAndNameAndQuarter(</span>
+<span class="fc" id="L164">            currentUser, incomingSchedule.getName(), incomingSchedule.getQuarter());</span>
 
 <span class="pc bpc" id="L166" title="3 of 4 branches missed.">    if (duplicateCheck.isPresent() &amp;&amp; (duplicateCheck.get().getId() != id)) {</span>
 <span class="nc" id="L167">      throw new IllegalArgumentException(</span>
