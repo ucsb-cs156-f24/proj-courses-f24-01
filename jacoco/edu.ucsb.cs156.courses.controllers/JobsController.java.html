@@ -125,13 +125,9 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @GetMapping(&quot;/logs/{id}&quot;)
   public String getJobLogs(
-      @Parameter(name = &quot;id&quot;, description = &quot;Job ID&quot;) @PathVariable Long id,
-      @Parameter(name = &quot;page&quot;, description = &quot;Page number&quot;) @RequestParam(defaultValue = &quot;0&quot;)
-          int page,
-      @Parameter(name = &quot;size&quot;, description = &quot;Page size&quot;) @RequestParam(defaultValue = &quot;10&quot;)
-          int size) {
+    @Parameter(name = &quot;id&quot;, description = &quot;Job ID&quot;) @PathVariable Long id) {
 
-<span class="nc" id="L134">    return jobService.getLongJob(id, page, size);</span>
+<span class="nc" id="L130">      return jobService.getLongJob(id);</span>
   }
 
   @Operation(summary = &quot;Launch Job to Update Course Data for range of quarters&quot;)
@@ -150,10 +146,10 @@ import org.springframework.web.bind.annotation.RestController;
           @RequestParam(defaultValue = &quot;true&quot;)
           Boolean ifStale) {
 
-<span class="fc" id="L153">    var job =</span>
-<span class="fc" id="L154">        updateCourseDataJobFactory.createForQuarterRange(start_quarterYYYYQ, end_quarterYYYYQ);</span>
+<span class="fc" id="L149">    var job =</span>
+<span class="fc" id="L150">        updateCourseDataJobFactory.createForQuarterRange(start_quarterYYYYQ, end_quarterYYYYQ);</span>
 
-<span class="fc" id="L156">    return jobService.runAsJob(job);</span>
+<span class="fc" id="L152">    return jobService.runAsJob(job);</span>
   }
 
   @Operation(
@@ -175,19 +171,19 @@ import org.springframework.web.bind.annotation.RestController;
           @RequestParam(defaultValue = &quot;true&quot;)
           Boolean ifStale) {
 
-<span class="fc" id="L178">    var job =</span>
-<span class="fc" id="L179">        updateCourseDataJobFactory.createForSubjectAndQuarterRange(</span>
+<span class="fc" id="L174">    var job =</span>
+<span class="fc" id="L175">        updateCourseDataJobFactory.createForSubjectAndQuarterRange(</span>
             subjectArea, start_quarterYYYYQ, end_quarterYYYYQ);
 
-<span class="fc" id="L182">    return jobService.runAsJob(job);</span>
+<span class="fc" id="L178">    return jobService.runAsJob(job);</span>
   }
 
   @Operation(summary = &quot;Launch Job to update grade history&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @PostMapping(&quot;/launch/uploadGradeData&quot;)
   public Job launchUploadGradeData() {
-<span class="fc" id="L189">    UploadGradeDataJob updateGradeDataJob = updateGradeDataJobFactory.create();</span>
-<span class="fc" id="L190">    return jobService.runAsJob(updateGradeDataJob);</span>
+<span class="fc" id="L185">    UploadGradeDataJob updateGradeDataJob = updateGradeDataJobFactory.create();</span>
+<span class="fc" id="L186">    return jobService.runAsJob(updateGradeDataJob);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
