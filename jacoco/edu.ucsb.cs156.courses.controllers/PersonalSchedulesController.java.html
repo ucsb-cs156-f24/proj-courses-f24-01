@@ -167,8 +167,8 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L167">        StreamSupport.stream(allSchedules.spliterator(), false)</span>
 <span class="fc" id="L168">            .anyMatch(</span>
                 schedule -&gt;
-<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                    schedule.getName().equals(incomingSchedule.getName())</span>
-<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                        &amp;&amp; schedule.getQuarter().equals(incomingSchedule.getQuarter())</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">                    schedule.getName().equals(incomingSchedule.getName())</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">                        &amp;&amp; schedule.getQuarter().equals(incomingSchedule.getQuarter())</span>
 <span class="fc bfc" id="L172" title="All 2 branches covered.">                        &amp;&amp; schedule.getId() != personalschedule.getId());</span>
 
 <span class="fc bfc" id="L174" title="All 2 branches covered.">    if (hasDuplicate) {</span>
