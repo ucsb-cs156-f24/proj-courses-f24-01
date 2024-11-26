@@ -163,26 +163,27 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L163">    Iterable&lt;PersonalSchedule&gt; allSchedules =</span>
 <span class="fc" id="L164">        personalscheduleRepository.findAllByUserId(currentUser.getId());</span>
 
-<span class="fc" id="L166">    boolean duplicateExists =</span>
+<span class="fc" id="L166">    long duplicateCount =</span>
 <span class="fc" id="L167">        StreamSupport.stream(allSchedules.spliterator(), false)</span>
-<span class="fc" id="L168">            .anyMatch(</span>
+<span class="fc" id="L168">            .filter(</span>
                 schedule -&gt;
-<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                    schedule.getName().equals(incomingSchedule.getName())</span>
-<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                        &amp;&amp; schedule.getQuarter().equals(incomingSchedule.getQuarter())</span>
-<span class="fc bfc" id="L172" title="All 2 branches covered.">                        &amp;&amp; schedule.getId() != id);</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                    schedule.getId() != incomingSchedule.getId()</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                        &amp;&amp; schedule.getName().equals(incomingSchedule.getName())</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                        &amp;&amp; schedule.getQuarter().equals(incomingSchedule.getQuarter()))</span>
+<span class="fc" id="L173">            .count();</span>
 
-<span class="fc bfc" id="L174" title="All 2 branches covered.">    if (duplicateExists) {</span>
-<span class="fc" id="L175">      throw new IllegalArgumentException(</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">    if (duplicateCount &gt; 0) {</span>
+<span class="fc" id="L176">      throw new IllegalArgumentException(</span>
           &quot;A personal schedule with that name already exists in that quarter&quot;);
     }
 
-<span class="fc" id="L179">    personalschedule.setName(incomingSchedule.getName());</span>
-<span class="fc" id="L180">    personalschedule.setDescription(incomingSchedule.getDescription());</span>
-<span class="fc" id="L181">    personalschedule.setQuarter(incomingSchedule.getQuarter());</span>
+<span class="fc" id="L180">    personalschedule.setName(incomingSchedule.getName());</span>
+<span class="fc" id="L181">    personalschedule.setDescription(incomingSchedule.getDescription());</span>
+<span class="fc" id="L182">    personalschedule.setQuarter(incomingSchedule.getQuarter());</span>
 
-<span class="fc" id="L183">    personalscheduleRepository.save(personalschedule);</span>
+<span class="fc" id="L184">    personalscheduleRepository.save(personalschedule);</span>
 
-<span class="fc" id="L185">    return personalschedule;</span>
+<span class="fc" id="L186">    return personalschedule;</span>
   }
 
   @Operation(
@@ -193,18 +194,18 @@ import org.springframework.web.bind.annotation.RestController;
   public PersonalSchedule putScheduleById_admin(
       @Parameter(name = &quot;id&quot;) @RequestParam Long id,
       @RequestBody @Valid PersonalSchedule incomingSchedule) {
-<span class="fc" id="L196">    PersonalSchedule personalschedule =</span>
+<span class="fc" id="L197">    PersonalSchedule personalschedule =</span>
         personalscheduleRepository
-<span class="fc" id="L198">            .findById(id)</span>
-<span class="fc" id="L199">            .orElseThrow(() -&gt; new EntityNotFoundException(PersonalSchedule.class, id));</span>
+<span class="fc" id="L199">            .findById(id)</span>
+<span class="fc" id="L200">            .orElseThrow(() -&gt; new EntityNotFoundException(PersonalSchedule.class, id));</span>
 
-<span class="fc" id="L201">    personalschedule.setName(incomingSchedule.getName());</span>
-<span class="fc" id="L202">    personalschedule.setDescription(incomingSchedule.getDescription());</span>
-<span class="fc" id="L203">    personalschedule.setQuarter(incomingSchedule.getQuarter());</span>
+<span class="fc" id="L202">    personalschedule.setName(incomingSchedule.getName());</span>
+<span class="fc" id="L203">    personalschedule.setDescription(incomingSchedule.getDescription());</span>
+<span class="fc" id="L204">    personalschedule.setQuarter(incomingSchedule.getQuarter());</span>
 
-<span class="fc" id="L205">    personalscheduleRepository.save(personalschedule);</span>
+<span class="fc" id="L206">    personalscheduleRepository.save(personalschedule);</span>
 
-<span class="fc" id="L207">    return personalschedule;</span>
+<span class="fc" id="L208">    return personalschedule;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
