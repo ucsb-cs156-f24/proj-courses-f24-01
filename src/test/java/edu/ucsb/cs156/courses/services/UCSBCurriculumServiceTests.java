@@ -296,7 +296,7 @@ public class UCSBCurriculumServiceTests {
     String result = ucs.getAllSections(enrollCode, quarter);
     assertEquals(expectedResult, result);
   }
-  
+
   @Test
   public void test_getFinalsInfo_success() throws Exception {
     String expectedResult = "{\"expectedResult\": \"finals info\"}";
@@ -306,7 +306,8 @@ public class UCSBCurriculumServiceTests {
     String quarter = "20251";
 
     // String expectedParams = "?quarter=" + quarter + "&enrollCode=" + enrollCode;
-    String expectedURL = UCSBCurriculumService.FINALS_ENDPOINT
+    String expectedURL =
+        UCSBCurriculumService.FINALS_ENDPOINT
             .replace("{quarter}", quarter)
             .replace("{enrollcode}", enrollCode);
 
@@ -338,7 +339,8 @@ public class UCSBCurriculumServiceTests {
   //       .andExpect(header("Accept", MediaType.APPLICATION_JSON.toString()))
   //       .andExpect(header("ucsb-api-version", "3.0"))
   //       .andExpect(header("ucsb-api-key", apiKey))
-  //       .andRespond(withSuccess("null", MediaType.APPLICATION_JSON)); // Simulating a not found response
+  //       .andRespond(withSuccess("null", MediaType.APPLICATION_JSON)); // Simulating a not found
+  // response
 
   //   String result = ucs.getFinalsInfo(quarter, enrollCode);
 
@@ -361,7 +363,8 @@ public class UCSBCurriculumServiceTests {
   //       .andExpect(header("Accept", MediaType.APPLICATION_JSON.toString()))
   //       .andExpect(header("ucsb-api-version", "3.0"))
   //       .andExpect(header("ucsb-api-key", apiKey))
-  //       .andRespond(withSuccess(expectedResult, MediaType.APPLICATION_JSON)); // Simulating an error response
+  //       .andRespond(withSuccess(expectedResult, MediaType.APPLICATION_JSON)); // Simulating an
+  // error response
 
   //   String result = ucs.getFinalsInfo(quarter, enrollCode);
 
