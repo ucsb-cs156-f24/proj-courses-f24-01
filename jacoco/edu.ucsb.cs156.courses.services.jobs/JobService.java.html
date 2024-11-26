@@ -40,5 +40,27 @@ import org.springframework.stereotype.Service;
 <span class="fc" id="L40">    job.setStatus(&quot;complete&quot;);</span>
 <span class="fc" id="L41">    jobsRepository.save(job);</span>
 <span class="fc" id="L42">  }</span>
+
+  public String getLongJob(Long jobId, int page, int size) {
+<span class="nc" id="L45">    Job job =</span>
+        jobsRepository
+<span class="nc" id="L47">            .findById(jobId)</span>
+<span class="nc" id="L48">            .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Job not found&quot;));</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">    String[] logLines = job.getLog() != null ? job.getLog().split(&quot;\n&quot;) : new String[0];</span>
+<span class="nc" id="L51">    int start = page * size;</span>
+<span class="nc" id="L52">    int end = Math.min(start + size, logLines.length);</span>
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (start &gt;= logLines.length) {</span>
+<span class="nc" id="L55">      return &quot;&quot;;</span>
+    }
+
+<span class="nc" id="L58">    StringBuilder logPage = new StringBuilder();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">    for (int i = start; i &lt; end; i++) {</span>
+<span class="nc" id="L60">      logPage.append(logLines[i]).append(&quot;\n&quot;);</span>
+    }
+
+<span class="nc" id="L63">    return logPage.toString();</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
