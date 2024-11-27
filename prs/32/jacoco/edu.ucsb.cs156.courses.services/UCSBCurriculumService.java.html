@@ -49,7 +49,7 @@ public class UCSBCurriculumService {
       &quot;https://api.ucsb.edu/academics/curriculums/v3/classes/{quarter}/{enrollcode}&quot;;
 
   public static final String FINALS_ENDPOINT =
-      &quot;https://api.ucsb.edu/academics/curriculums/v3/finals/{quarter}/{enrollcode}&quot;;
+      &quot;https://api.ucsb.edu/academics/curriculums/v3/finals&quot;;
 
   public String getJSON(String subjectArea, String quarter, String courseLevel) throws Exception {
 
@@ -249,21 +249,23 @@ public class UCSBCurriculumService {
 <span class="fc" id="L249">    headers.set(&quot;ucsb-api-key&quot;, this.apiKey);</span>
 
 <span class="fc" id="L251">    HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(&quot;body&quot;, headers);</span>
-<span class="fc" id="L252">    String url = &quot;https://api.ucsb.edu/academics/curriculums/v3/finals/&quot; + quarter + &quot;/&quot; + enrollCd;</span>
 
-<span class="fc" id="L254">    log.info(&quot;url=&quot; + url);</span>
+<span class="fc" id="L253">    String params = String.format(&quot;?quarter=%s&amp;enrollCode=%s&quot;, quarter, enrollCd);</span>
+<span class="fc" id="L254">    String url = FINALS_ENDPOINT + params;</span>
+
+<span class="fc" id="L256">    log.info(&quot;url=&quot; + url);</span>
 
     String retVal;
     MediaType contentType;
     HttpStatus statusCode;
 
-<span class="fc" id="L260">    ResponseEntity&lt;String&gt; re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);</span>
-<span class="fc" id="L261">    contentType = re.getHeaders().getContentType();</span>
-<span class="fc" id="L262">    statusCode = (HttpStatus) re.getStatusCode();</span>
-<span class="fc" id="L263">    retVal = re.getBody();</span>
+<span class="fc" id="L262">    ResponseEntity&lt;String&gt; re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);</span>
+<span class="fc" id="L263">    contentType = re.getHeaders().getContentType();</span>
+<span class="fc" id="L264">    statusCode = (HttpStatus) re.getStatusCode();</span>
+<span class="fc" id="L265">    retVal = re.getBody();</span>
 
-<span class="fc" id="L265">    log.info(&quot;json: {} contentType: {} statusCode: {}&quot;, retVal, contentType, statusCode);</span>
-<span class="fc" id="L266">    return retVal;</span>
+<span class="fc" id="L267">    log.info(&quot;json: {} contentType: {} statusCode: {}&quot;, retVal, contentType, statusCode);</span>
+<span class="fc" id="L268">    return retVal;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
