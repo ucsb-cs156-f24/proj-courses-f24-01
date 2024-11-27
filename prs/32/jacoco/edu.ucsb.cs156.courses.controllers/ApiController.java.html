@@ -11,34 +11,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-// testing how creating a draft pull request works! cameron
-<span class="fc" id="L15">@Slf4j</span>
-<span class="fc" id="L16">public abstract class ApiController {</span>
+<span class="fc" id="L14">@Slf4j</span>
+<span class="fc" id="L15">public abstract class ApiController {</span>
 
   @Autowired private CurrentUserService currentUserService;
 
   protected CurrentUser getCurrentUser() {
-<span class="fc" id="L21">    return currentUserService.getCurrentUser();</span>
+<span class="fc" id="L20">    return currentUserService.getCurrentUser();</span>
   }
 
   protected Object genericMessage(String message) {
-<span class="fc" id="L25">    return Map.of(&quot;message&quot;, message);</span>
+<span class="fc" id="L24">    return Map.of(&quot;message&quot;, message);</span>
   }
 
   @ExceptionHandler({EntityNotFoundException.class, BadEnrollCdException.class})
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public Object handleGenericException(Throwable e) {
-<span class="fc" id="L31">    return Map.of(</span>
-<span class="fc" id="L32">        &quot;type&quot;, e.getClass().getSimpleName(),</span>
-<span class="fc" id="L33">        &quot;message&quot;, e.getMessage());</span>
+<span class="fc" id="L30">    return Map.of(</span>
+<span class="fc" id="L31">        &quot;type&quot;, e.getClass().getSimpleName(),</span>
+<span class="fc" id="L32">        &quot;message&quot;, e.getMessage());</span>
   }
 
   @ExceptionHandler({IllegalArgumentException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Object handleIllegalArgumentException(Throwable e) {
-<span class="fc" id="L39">    return Map.of(</span>
-<span class="fc" id="L40">        &quot;type&quot;, e.getClass().getSimpleName(),</span>
-<span class="fc" id="L41">        &quot;message&quot;, e.getMessage());</span>
+<span class="fc" id="L38">    return Map.of(</span>
+<span class="fc" id="L39">        &quot;type&quot;, e.getClass().getSimpleName(),</span>
+<span class="fc" id="L40">        &quot;message&quot;, e.getMessage());</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
